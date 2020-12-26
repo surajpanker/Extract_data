@@ -16,3 +16,5 @@ def pdf_data_text(folder_name,filename):
     # this will print the text you can also save that into String
     string=pageObj.extractText()
     return string
+
+

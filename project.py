@@ -31,7 +31,9 @@ with ZipFile(file_name, 'r') as zip:
 #list all files in filder
 all_files = os.listdir(folder_name)   
 
-print(all_files)  
+print(all_files) 
+
+#demo string 
 d=''''
 shdri.babuji@shriresume.com
 Ram1 Kumar
