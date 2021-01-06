@@ -4,18 +4,15 @@ from zipfile import ZipFile
 import email
 import os
 import pdf_text
-
+import name
 #code for unzip file stat here 
 
 # specifying the zip file name
-file_name = "resumes.zip"
-filename =  file_name.split(".")
-folder_name=filename[0]
-folder_names=file_name.split(".")
-folder_name=folder_names[0]
-file =[]
+file_name = "ready.zip"
+
 # opening the zip file in READ mode
-with ZipFile(file_name, 'r') as zip:
+file=[]
+with ZipFile('ready.zip', 'r') as zip:
     # printing all the contents of the zip file
     zip.printdir()
 
@@ -23,15 +20,15 @@ with ZipFile(file_name, 'r') as zip:
     for i in arr:
         file.append(i)
 
-    zip.extractall()
+    zip.extractall('./filefolder')
 
 
 #code for unzip file end here 
-
+folder_name="filefolder"
 #list all files in filder
 all_files = os.listdir(folder_name)   
 
-print(all_files) 
+#print(all_files) 
 
 #demo string 
 d=''''
@@ -43,26 +40,24 @@ Ram Kumar G/14
 
 
 '''
-import saveTocsv
+import csv
+data=[]
 for i in all_files:
     #file =folder_name+"/"+all_files[i]
-    string = pdf_text.pdf_data_text(folder_name,i)
-    list = extract.Information_data(string)
+  
+    string =(pdf_text.convert_pdf_to_txt(i))
+    name1=name.extract_names(i)
+    email1,phone1=extract.Information_data(string)
+    print(name1,email1,phone1)
+    data.append([name1,email1,phone1])
     
-    if list[0]:
-        phone_number=list[0][0]
 
-    if list[1][0]:
-        email=list[1][0]
 
-    if list[2][0]:
-        name=list[2]
-    
-    #print(phone_number)
-    if list[0]:
-        name1=str(name[0])
-        email1=str(email)
-        print(email1)
-        print(name1)
-        saveTocsv.SaveCSV(name1,email1,phone_number)
-
+  
+# opening the csv file in 'a+' mode 
+file = open('data.csv', 'a+', newline ='') 
+  
+# writing the data into the file 
+with file:     
+    write = csv.writer(file) 
+    write.writerows(data) 

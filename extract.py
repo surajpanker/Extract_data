@@ -41,12 +41,28 @@ def extract_names(document):
                     names.append(' '.join([c[0] for c in chunk]))
     return names
 
+
+def extract_namesl(txt):
+    person_names = []
+
+    for sent in nltk.sent_tokenize(txt):
+        for chunk in nltk.ne_chunk(nltk.pos_tag(nltk.word_tokenize(sent))):
+            if hasattr(chunk, 'label') and chunk.label() == 'PERSON':
+                person_names.append(' '.join(chunk_leave[0] for chunk_leave in chunk.leaves()))
+
+    return person_names
+
+
+
 def Information_data(string):
     
     numbers = extract_phone_numbers(string)
     emails = extract_email_addresses(string)
-    names = extract_names(string)
-    return (numbers,emails,names) 
+    return numbers[0], emails[0]
+    
+    #https://prodevsblog.com/questions/146030/extracting-text-from-a-pdf-file-using-pdfminer-in-python/
+    #https://promptapi.com/blog/article/build-your-own-resume-parser-using-python-and-nlp
+    
      
 
 
