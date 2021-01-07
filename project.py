@@ -46,17 +46,18 @@ for i in all_files:
     #file =folder_name+"/"+all_files[i]
   
     string =(pdf_text.convert_pdf_to_txt(i))
-    name1=name.extract_names(i)
+    f,s=name.extract_names(i)
     email1,phone1=extract.Information_data(string)
-    print(name1,email1,phone1)
-    data.append([name1,email1,phone1])
+    print(f,s,email1,phone1)
+    data.append([f,s,phone1,email1])
     
 
 
   
 # opening the csv file in 'a+' mode 
 file = open('data.csv', 'a+', newline ='') 
-  
+fields = ['First Name' ,'Second Name' ,'Phone Number' ,'Email'] 
+writer = csv.DictWriter(file, fieldnames = fields)   
 # writing the data into the file 
 with file:     
     write = csv.writer(file) 
